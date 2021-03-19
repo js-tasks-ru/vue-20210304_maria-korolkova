@@ -11,15 +11,11 @@
 </head>
 <body>
 
+
 <div id="app">
-  <input type="text" />
+  <input type="text" value="" v-model="searchValue" @change="searchValue = value">
   <ul>
-    <li>Email</li>
-    <li class="marked">Email</li>
-    <li class="marked">Email</li>
-    <li>Email</li>
-    <li>Email</li>
-    <li>...</li>
+    <li v-for="item in emails" :class="!!checkMatch(item) ? 'marked' : ''">{{ item }}</li>
   </ul>
 </div>
 
