@@ -30,28 +30,28 @@ const emails = [
   'Isaias_Kuhic@jarrett.net',
 ];
 
-
 const vm = new Vue({
   el: '#app',
   data: (vm) => ({
     emails: emails,
-    searchValue: document.querySelector('input').value
+    searchValue: ' ',
   }),
   
-  methods: {
-    checkMatch: function(elem) {
-      if (this.searchValue === elem.textContent) {
-        return true;
-      }
-    }
-  },
   computed: {
-    // searchValue: ''
-    /* checkMatch: function () {
-    if (this.inputField.value === this.searchValue) {
-      return 'marked';
+    matchedEmails: function () {
+      let result = [];
+      const regexp = this.searchValue.toLowerCase();
+      emails.map((item) => {
+        let obj = {};
+        obj.name = item;
+        obj.marked = false;
+        let str = item.toLowerCase();
+        if ((item.length > 0) && (str.search(regexp) !== -1)) {
+          obj.marked = true;
+        }
+        result.push(obj);
+      });
+      return result;
     }
-    }
-    */
   }
 });

@@ -13,9 +13,11 @@
 
 
 <div id="app">
-  <input type="text" value="" v-model="searchValue" @change="searchValue = value">
+  <!--<input type="text" value="" v-model="searchValue" :value="value">-->
+  <input type="text" value="" v-model="searchValue">
   <ul>
-    <li v-for="item in emails" :class="!!checkMatch(item) ? 'marked' : ''">{{ item }}</li>
+    <!--<li v-for="item in matchedEmails" :class="{ marked: !!checkMatch(item) }">{{ item }}</li>-->
+    <li v-for="item in matchedEmails" :class="{ marked: !!item.marked }">{{ item.name }}</li>
   </ul>
 </div>
 
