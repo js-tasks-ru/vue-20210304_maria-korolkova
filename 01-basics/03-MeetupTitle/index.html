@@ -6,7 +6,13 @@
 </head>
 <body>
 
-<!-- Решение -->
+  <div id="app">
+    <form>
+      <label v-for="n in 5"><input type="radio" name="meetup-number" v-bind:value="{n}" v-model="number"> {{ n }}</label>
+    </form>
+    <hr>
+    <h3>{{ chosenMeetupTitle }}</h3>
+  </div>
 
 <script type="module" src="script.js"></script>
 </body>
