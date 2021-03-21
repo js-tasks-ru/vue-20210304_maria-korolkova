@@ -1,20 +1,38 @@
 import Vue from './vendor/vue.esm.browser.js';
 
-let response = await fetch('https://course-vue.javascript.ru/api/meetups');
-let text = await response.text();
-const meetupsData = JSON.parse(text);
-console.log('получено: ', meetupsData);
-
 const app = new Vue({
   el: '#app',
   data: (app) => ({
-    meetups: meetupsData,
-    title: this.data.meetups(0).title
+    meetup: null,
+    number: 3
   }),
   methods: {
+    getMeetupData: function () {
+      const url = 'https://course-vue.javascript.ru/api/meetups/' + this.number;
+      console.log(url);
+      fetch(url) 
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          this.meetup = data;
+        });
+    }
   },
-  computed: {},
-  watch: {}
-});
+  created() {
+    console.log(this.number, this.meetup);
+    this.getMeetupData();
+  },
 
-console.log(meetupsData, app.data.meetups);
+  computed: {
+    chosenMeetupTitle: function () {
+      //return '112223333';
+      return this.meetup.title;
+    }
+  },
+  watch: {
+    number: this.getMeetupData()
+  }
+
+});
