@@ -44,4 +44,133 @@ const getAgendaItemIcons = () => ({
   other: 'cal-sm',
 });
 
-new Vue();
+const localizeDate = (str) => {
+  return new Date(str).toLocaleString(navigator.language, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+};
+
+const localizeDateToString = (str) => {
+  return new Date(str).toISOString().split('T')[0];
+};
+
+
+//// vue
+
+const app = new Vue({
+  el: '#app',
+  
+  data: (app) => ({
+    meetup: null,
+    //imageSrc: null
+    //number: 0
+  }),
+
+  methods: {
+    getMeetupData: function () {
+      //if (this.number === 0) return;
+      const url = API_URL + '/meetups/' + MEETUP_ID;
+      console.log(url);
+      fetch(url) 
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.meetup = data;
+          console.log(data);
+        });
+    },
+    hasSpeaker: function (item) {
+      return item.type === 'talk' ? true : false;
+    },
+    hasTitle: function (item) {
+      return item.title !== null ? true : false;
+    },
+    icon: function (item) {
+      const name = getAgendaItemIcons(item.type);
+      return `/assets/icons/icon-${name}.svg`;
+    }
+    /*
+    makeAgendaItem: function (item) {
+      const agendaObj = {
+        id: item.id,
+        title: item.title,
+        speaker: item.speaker,
+        description: item.description,
+        language: item.itemlanguage,
+        type: item.type,
+        startsAt: item.startsAt,
+        endsAt: item.endsAt
+      };
+      return agendaObj;
+    },
+    */
+    /* getImageUrl: function (imageId) {
+      const url = API_URL + '/images/' + imageId;
+      fetch(url) 
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.imageSrc = data;
+        });
+    } */
+  },
+
+  created() {
+    this.getMeetupData();
+  },
+
+  computed: {
+    title: function () {
+      if (this.meetup === null) return;
+      return this.meetup.title;
+    },
+    description: function () {
+      if (this.meetup === null) return;
+      return this.meetup.description;
+    },
+    organizer: function () {
+      if (this.meetup === null) return;
+      return this.meetup.organizer;
+    },
+    place: function () {
+      if (this.meetup === null) return;
+      return this.meetup.place;
+    },
+    date: function () {
+      if (this.meetup === null) return;
+      const dateFormatted = localizeDate(this.meetup.date);
+      return dateFormatted;
+    },
+    datetime: function () {
+      if (this.meetup === null) return;
+      const dateFormatted = localizeDateToString(this.meetup.date);
+      return dateFormatted;
+    },
+    bgImage: function () {
+      if (this.meetup === null || this.meetup.imageId === null|| this.imageSrc === null) return;
+      console.log(this.meetup.imageId);
+      const src = getImageUrlByImageId(this.meetup.imageId);
+      const bgStyle = '--bg-url: ' + src + '.jpg';
+      console.log(bgStyle);
+      return bgStyle;
+    },
+    noAgenda: function () {
+      return (this.meetup === null || this.meetup.agenda === null) ? true : false;
+    },
+    defaultTitle: function () {
+      console.log(this.type);
+      return this.type + '777';
+      //return getAgendaItemDefaultTitles(this.type);
+    },
+  },
+
+  /* watch: {
+    number: function () {
+      this.getMeetupData();
+    }
+  } */
+});
