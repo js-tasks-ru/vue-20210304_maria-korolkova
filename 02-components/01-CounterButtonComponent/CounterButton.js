@@ -1,22 +1,31 @@
 export default {
   name: 'CounterButton',
 
-  // props: ['count'],
+  props: {
+    count: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+  },
 
   data() {
     return {
-      count: 0
+      newCount: this.props.count
     }
   },
 
   methods: {
-    increment() {
-      this.count++;
+    increment(value) {
+      const result = value += 1;
+      return result;
     }
   },
 
   computed: {
-    //newCount: this.increment(this.count)
+    sum() {
+      return this.increment(this.newCount);
+    }
   },
 
   // Компонент должен иметь входной параметр
@@ -28,6 +37,6 @@ export default {
   // Шаблон потребуется отредактировать
   // template: '<button type="button" @click="increment" v-model="count">{{ count }}</button>',
 
-  template: '<button type="button" @click="increment">{{ count }}</button>',
+  template: '<button type="button" @click="increment">{{ sum }}</button>',
 };
 
