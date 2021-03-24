@@ -56,23 +56,16 @@ const localizeDateToString = (str) => {
   return new Date(str).toISOString().split('T')[0];
 };
 
-
-//// vue
-
 const app = new Vue({
   el: '#app',
   
   data: (app) => ({
     meetup: null,
-    //imageSrc: null
-    //number: 0
   }),
 
   methods: {
     getMeetupData: function () {
-      //if (this.number === 0) return;
       const url = API_URL + '/meetups/' + MEETUP_ID;
-      console.log(url);
       fetch(url) 
         .then((response) => {
           return response.json();
@@ -89,34 +82,17 @@ const app = new Vue({
       return item.title !== null ? true : false;
     },
     icon: function (item) {
-      const name = getAgendaItemIcons(item.type);
-      return `/assets/icons/icon-${name}.svg`;
-    }
-    /*
-    makeAgendaItem: function (item) {
-      const agendaObj = {
-        id: item.id,
-        title: item.title,
-        speaker: item.speaker,
-        description: item.description,
-        language: item.itemlanguage,
-        type: item.type,
-        startsAt: item.startsAt,
-        endsAt: item.endsAt
-      };
-      return agendaObj;
+      const type = item.type; 
+      const obj = getAgendaItemIcons();
+      const src = obj[type];
+      return `/assets/icons/icon-${src}.svg`;
     },
-    */
-    /* getImageUrl: function (imageId) {
-      const url = API_URL + '/images/' + imageId;
-      fetch(url) 
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          this.imageSrc = data;
-        });
-    } */
+    showDefaultTitle: function (item) {
+      const type = item.type;
+      const obj = getAgendaItemDefaultTitles();
+      const title = obj[type];
+      return title;
+    },
   },
 
   created() {
@@ -152,25 +128,16 @@ const app = new Vue({
     },
     bgImage: function () {
       if (this.meetup === null || this.meetup.imageId === null|| this.imageSrc === null) return;
-      console.log(this.meetup.imageId);
-      const src = getImageUrlByImageId(this.meetup.imageId);
-      const bgStyle = '--bg-url: ' + src + '.jpg';
-      console.log(bgStyle);
+      const bgStyle = `--bg-url: url(https://course-vue.javascript.ru/api/images/${this.meetup.imageId})`;
       return bgStyle;
     },
     noAgenda: function () {
       return (this.meetup === null || this.meetup.agenda === null) ? true : false;
     },
-    defaultTitle: function () {
-      console.log(this.type);
-      return this.type + '777';
-      //return getAgendaItemDefaultTitles(this.type);
+    defaultTitle: function (item) {
+      const title = this.showDefaultTitle(item.type);
+      return title;
     },
   },
 
-  /* watch: {
-    number: function () {
-      this.getMeetupData();
-    }
-  } */
 });
