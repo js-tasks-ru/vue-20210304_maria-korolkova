@@ -11,12 +11,12 @@ export default {
   },
 
   computed: {
-    meetupTitle() {
+    /* meetupTitle() {
       return (this.title === null || !this.itle) ? 'Demo meetup' : this.title;
-    },
+    },*/
     bgImage() {
-      if (this.link === null || !this.link) return;
-      const bgStyle = `--bg-url: url(${this.link})`;
+      if (this.link=== null || !this.link) return;
+      const bgStyle = `--bg-url: url(https://course-vue.javascript.ru/api/images/${this.link})`;
       return bgStyle;
     },
   },

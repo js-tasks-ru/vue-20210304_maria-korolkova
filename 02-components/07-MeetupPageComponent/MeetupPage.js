@@ -1,8 +1,15 @@
-// import MeetupView from './MeetupView.js';
-// import { MEETUP_ID, fetchMeetup } from './data.js';
+import MeetupView from './MeetupView.js';
+import { MEETUP_ID, fetchMeetup } from './data.js';
 
 export default {
   name: 'MeetupPage',
 
-  template: `<div></div>`,
+  components: {
+    MeetupView,
+  },
+
+  template: 
+  `<div>
+    <meetup-view :link="meetup.link" :title="meetup.title" />
+  </div>`,
 };

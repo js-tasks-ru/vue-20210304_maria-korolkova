@@ -18,11 +18,13 @@ export default {
 
   computed: {
     localDate() {
-      return new Date(this.date).toLocaleString(navigator.language, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
+      return {
+        localDate: this.date.toLocaleDateString(navigator.language, {
+          year: 'numeric',
+          day: 'numeric',
+          month: 'long'
+        }),
+      };
     },
     localDateTime() {
       return new Date(this.date).toISOString().split('T')[0];
@@ -41,7 +43,7 @@ export default {
       </li>
       <li>
         <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-        <time :datetime="localDateTime">{{ localDate }}</time>
+        <time v-bind:datetime="localDateTime">{{ localDate }}</time>
       </li>
     </ul>`,
 };
