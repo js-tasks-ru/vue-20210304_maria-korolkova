@@ -8,23 +8,19 @@ import { MEETUP_ID, fetchMeetup } from './data.js';
 
 console.log(fetchMeetup);
 
-const meetupData = fetchMeetup(MEETUP_ID);
-
 export default {
   name: 'MeetupPage',
 
   data() {
     return {
-      meetup: meetupData
+      meetup: null
     }
   },
-/*
-  computed: {
+
+/*  computed: {
     meetup() {
-      const meetupData = 
-      console.log(meetupData);
-      return meetupData;
-    },
+      this.getMeetupData();
+    }
   },
 */
   components: {
@@ -37,7 +33,27 @@ export default {
   },
 
   template: 
-  `<div>
-    <meetup-view :date="meetup.date" :agenda="meetup.agenda" :type="meetup.type" :title="meetup.title" :place="meetup.place" :description="meetup.description" :organizer="meetup.organizer" :meetup="meetup" />
+  `<div v-if="meetup">
+    <meetup-view 
+    :date="meetup.date" 
+    :agenda="meetup.agenda" 
+    :type="meetup.type" 
+    :title="meetup.title" 
+    :place="meetup.place" 
+    :description="meetup.description" 
+    :organizer="meetup.organizer" 
+    :meetup="meetup" />
   </div>`,
+
+  methods: {
+    getMeetupData() {
+      const meetupData = fetchMeetup(MEETUP_ID);
+      this.meetup = JSON.parse(meetupData);
+      console.log(this.meetup);
+    },
+  },
+
+  created() {
+    this.getMeetupData();
+  },
 };
