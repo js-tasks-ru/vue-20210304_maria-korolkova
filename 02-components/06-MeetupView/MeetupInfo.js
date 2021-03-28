@@ -43,7 +43,7 @@ export default {
       </li>
       <li>
         <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-        <time v-bind:datetime="localDateTime">{{ localDate }}</time>
+        <time :datetime="localDateTime">{{ localDate }}</time>
       </li>
     </ul>`,
 };

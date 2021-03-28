@@ -9,12 +9,6 @@ export default {
     },
   },
 
-  data() {
-    return {
-      newCount: this.props.count
-    }
-  },
-
   methods: {
     increment(value) {
       const result = value += 1;
@@ -22,7 +16,15 @@ export default {
     }
   },
 
+  model: {
+    prop: 'count',
+    
+  },
+
   computed: {
+    newCount() {
+      return this.props.count;
+    },
     sum() {
       return this.increment(this.newCount);
     }
