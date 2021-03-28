@@ -72,7 +72,6 @@ const app = new Vue({
         })
         .then((data) => {
           this.meetup = data;
-          console.log(data);
         });
     },
     hasSpeaker: function (item) {
@@ -101,38 +100,32 @@ const app = new Vue({
 
   computed: {
     title: function () {
-      if (this.meetup === null) return;
       return this.meetup.title;
     },
     description: function () {
-      if (this.meetup === null) return;
       return this.meetup.description;
     },
     organizer: function () {
-      if (this.meetup === null) return;
       return this.meetup.organizer;
     },
     place: function () {
-      if (this.meetup === null) return;
       return this.meetup.place;
     },
     date: function () {
-      if (this.meetup === null) return;
       const dateFormatted = localizeDate(this.meetup.date);
       return dateFormatted;
     },
     datetime: function () {
-      if (this.meetup === null) return;
       const dateFormatted = localizeDateToString(this.meetup.date);
       return dateFormatted;
     },
     bgImage: function () {
-      if (this.meetup === null || this.meetup.imageId === null|| this.imageSrc === null) return;
+      if (this.meetup.imageId === null|| this.imageSrc === null) return;
       const bgStyle = `--bg-url: url(https://course-vue.javascript.ru/api/images/${this.meetup.imageId})`;
       return bgStyle;
     },
     noAgenda: function () {
-      return (this.meetup === null || this.meetup.agenda === null) ? true : false;
+      return (this.meetup.agenda.length === 0) ? true : false;
     },
     defaultTitle: function (item) {
       const title = this.showDefaultTitle(item.type);

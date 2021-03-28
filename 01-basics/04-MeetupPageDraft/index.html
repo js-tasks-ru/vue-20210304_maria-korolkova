@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="app">
-  <div>
+  <div v-if="meetup">
     <div class="meetup-cover" :style="bgImage">
       <h1 class="meetup-cover__title">{{ title }}</h1>
     </div>
@@ -26,16 +26,16 @@
 
           <p v-if="noAgenda" class="meetup-agenda__empty">Программа пока пуста, но когда-нибудь в ней обязательно что-нибудь появится!</p>
 
-          <div v-else="noAgenda" class="meetup-agenda">
+          <div v-else class="meetup-agenda">
 
             <div v-for="item in meetup.agenda" class="meetup-agenda__item">
               <div class="meetup-agenda__item-col">
-                <img class="icon" alt="icon" v-bind:src="icon(item)" />
+                <img class="icon" alt="icon" :src="icon(item)" />
               </div>
               <div class="meetup-agenda__item-col">{{ item.startsAt }} - {{ item.endsAt }}</div>
               <div class="meetup-agenda__item-col">
                 <h5 v-if="hasTitle(item)" class="meetup-agenda__title">{{ item.title }}</h5>
-                <h5 v-else="hasTitle(item)" class="meetup-agenda__title">{{ showDefaultTitle(item) }}</h5>
+                <h5 v-else class="meetup-agenda__title">{{ showDefaultTitle(item) }}</h5>
                 <p v-if="hasSpeaker(item)">
                   <span>{{ item.speaker }}</span>
                   <span class="meetup-agenda__dot"></span>
@@ -60,7 +60,7 @@
             </li>
             <li>
               <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-              <time v-bind:datetime="datetime">{{ date }}</time>
+              <time :datetime="datetime">{{ date }}</time>
             </li>
           </ul>
         </div>
