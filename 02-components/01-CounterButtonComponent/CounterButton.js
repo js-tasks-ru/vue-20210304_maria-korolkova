@@ -4,29 +4,32 @@ export default {
   props: {
     count: {
       type: Number,
-      required: true,
+      //required: true,
       default: 0
     },
   },
 
   methods: {
-    increment(value) {
+    /*increment(value) {
       const result = value += 1;
       return result;
-    }
+    }*/
+    increment() {
+      this.$emit('increment', this.count + 1);
+    },
   },
 
   model: {
-    prop: 'newCount',
-    event: 'click'
+    prop: 'count',
+    event: 'increment'
   },
 
   computed: {
-    newCount() {
+    /*newCount() {
       return this.props.count;
-    },
+    },*/
     sum() {
-      return this.increment(this.newCount);
+      return this.increment(this.count);
     }
   },
 

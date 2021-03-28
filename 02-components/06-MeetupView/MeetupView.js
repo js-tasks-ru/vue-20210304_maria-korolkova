@@ -25,15 +25,13 @@ export default {
 
   computed: {
     link() {
-      return `https://course-vue.javascript.ru/api/images/${this.meetup.imageId}`;
+      if (this.meetup.imageId === null) return;
+      // return `https://course-vue.javascript.ru/api/images/${this.meetup.imageId}`;
+      return getImageUrlByImageId(this.meetup.imageId);
     },
     dateAsDate() {
       return new Date(this.meetup.date);
     }
-  },
-
-  created() {
-    console.log(this.meetup);
   },
 
   template: `
