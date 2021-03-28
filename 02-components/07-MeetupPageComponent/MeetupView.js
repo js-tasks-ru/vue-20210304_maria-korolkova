@@ -26,7 +26,6 @@ export default {
   computed: {
     link() {
       if (this.meetup.imageId === null) return;
-      // return `https://course-vue.javascript.ru/api/images/${this.meetup.imageId}`;
       return getImageUrlByImageId(this.meetup.imageId);
     },
     dateAsDate() {

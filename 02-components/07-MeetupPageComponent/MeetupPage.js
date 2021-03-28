@@ -6,8 +6,6 @@ import MeetupAgendaItem from './MeetupAgendaItem.js';
 import MeetupInfo from './MeetupInfo.js';
 import { MEETUP_ID, fetchMeetup } from './data.js';
 
-console.log(fetchMeetup);
-
 export default {
   name: 'MeetupPage',
 
@@ -17,12 +15,6 @@ export default {
     }
   },
 
-/*  computed: {
-    meetup() {
-      this.getMeetupData();
-    }
-  },
-*/
   components: {
     MeetupView,
     MeetupCover,
@@ -48,8 +40,6 @@ export default {
   methods: {
     getMeetupData() {
       fetchMeetup(MEETUP_ID).then((response) => this.meetup = response);
-      
-      //console.log(this.meetup);
     },
   },
 
