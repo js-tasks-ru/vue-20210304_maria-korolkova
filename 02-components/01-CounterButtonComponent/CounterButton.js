@@ -17,8 +17,8 @@ export default {
   },
 
   model: {
-    prop: 'count',
-    
+    prop: 'newCount',
+    event: 'click'
   },
 
   computed: {
