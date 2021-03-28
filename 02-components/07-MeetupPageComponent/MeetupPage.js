@@ -47,9 +47,9 @@ export default {
 
   methods: {
     getMeetupData() {
-      const meetupData = fetchMeetup(MEETUP_ID);
-      this.meetup = JSON.parse(meetupData);
-      console.log(this.meetup);
+      fetchMeetup(MEETUP_ID).then((response) => this.meetup = response);
+      
+      //console.log(this.meetup);
     },
   },
 
