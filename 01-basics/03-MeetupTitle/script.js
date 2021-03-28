@@ -10,7 +10,7 @@ const app = new Vue({
 
   methods: {
     getMeetupData: function () {
-      if (this.number === 0) return;
+      if (this.number === null) return;
       const url = 'https://course-vue.javascript.ru/api/meetups/' + this.number;
       fetch(url) 
         .then((response) => {
