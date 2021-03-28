@@ -3,7 +3,8 @@ export default {
 
   props: {
     title: {
-      type: String
+      type: String,
+      default: 'Demo meetup'
       },
     link: {
       type: String
@@ -11,9 +12,7 @@ export default {
   },
 
   computed: {
-    meetupTitle() {
-      return (this.title === null || !this.itle) ? 'Demo meetup' : this.title;
-    },
+
     bgImage() {
       if (this.link === null || !this.link) return;
       const bgStyle = `--bg-url: url(${this.link})`;

@@ -1,4 +1,4 @@
-import { MeetupAgendaItem } from './MeetupAgendaItem.js';
+import MeetupAgendaItem from './MeetupAgendaItem.js';
 
 export default {
   name: 'MeetupAgenda',

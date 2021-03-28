@@ -46,8 +46,9 @@ export default {
       </div>
       <div class="meetup-agenda__item-col">{{ agendaItem.startsAt }} - {{ agendaItem.endsAt }}</div>
       <div class="meetup-agenda__item-col">
-        <h5 v-if="agendaItem.title" class="meetup-agenda__title">{{ agendaItem.title }}</h5>
-        <h5 v-else class="meetup-agenda__title">{{ defaultTitle }}</h5>
+        <!-- <h5 v-if="agendaItem.title" class="meetup-agenda__title">{{ agendaItem.title }}</h5>
+        <h5 v-else class="meetup-agenda__title">{{ defaultTitle }}</h5> -->
+        <h5 class="meetup-agenda__title">{{ agendaItem.title ? agendaItem.title : defaultTitle }}</h5>
         <p v-if="agendaItem.type === 'talk'">
           <span>{{ agendaItem.speaker }}</span>
           <span class="meetup-agenda__dot"></span>
