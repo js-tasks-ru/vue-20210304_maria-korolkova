@@ -26,14 +26,7 @@ export default {
 
   template: 
   `<div v-if="meetup">
-    <meetup-view 
-    :date="meetup.date" 
-    :agenda="meetup.agenda" 
-    :type="meetup.type" 
-    :title="meetup.title" 
-    :place="meetup.place" 
-    :description="meetup.description" 
-    :organizer="meetup.organizer" 
+    <meetup-view  
     :meetup="meetup" />
   </div>`,
 
