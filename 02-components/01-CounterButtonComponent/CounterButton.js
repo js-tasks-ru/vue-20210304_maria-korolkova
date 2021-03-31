@@ -27,12 +27,16 @@ export default {
   computed: {
     /*newCount() {
       return this.props.count;
-    },*/
+    },
     sum() {
-      return this.increment(this.count);
-    }
+      return this.increment();
+    }*/
   },
-
+/*
+  created() {
+    this.increment();
+  },
+*/
   // Компонент должен иметь входной параметр
 
   // Компонент должен иметь модель
@@ -42,6 +46,6 @@ export default {
   // Шаблон потребуется отредактировать
   // template: '<button type="button" @click="increment" v-model="count">{{ count }}</button>',
 
-  template: '<button type="button" @click="increment">{{ sum }}</button>',
-};
+  template: '<button type="button" @click="increment" v-model="count">{{ count }}</button>',
+}
 
