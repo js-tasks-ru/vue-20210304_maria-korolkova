@@ -61,6 +61,7 @@ const app = new Vue({
   
   data: (app) => ({
     meetup: null,
+    agendaItemIcons: getAgendaItemIcons()
   }),
 
   methods: {
@@ -74,18 +75,18 @@ const app = new Vue({
           this.meetup = data;
         });
     },
-    hasSpeaker: function (item) {
+    /*hasSpeaker: function (item) {
       return item.type === 'talk' ? true : false;
-    },
+    },*/
     hasTitle: function (item) {
       return item.title !== null ? true : false;
     },
-    icon: function (item) {
+    /*icon: function (item) {
       const type = item.type; 
       const obj = getAgendaItemIcons();
       const src = obj[type];
       return `/assets/icons/icon-${src}.svg`;
-    },
+    },*/
     showDefaultTitle: function (item) {
       const type = item.type;
       const obj = getAgendaItemDefaultTitles();

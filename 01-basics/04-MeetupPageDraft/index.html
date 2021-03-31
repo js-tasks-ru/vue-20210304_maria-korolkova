@@ -30,13 +30,13 @@
 
             <div v-for="item in meetup.agenda" class="meetup-agenda__item">
               <div class="meetup-agenda__item-col">
-                <img class="icon" alt="icon" :src="icon(item)" />
+                <img class="icon" alt="icon" :src="`/assets/icons/icon-` + agendaItemIcons[item.type] + `.svg`" />
               </div>
               <div class="meetup-agenda__item-col">{{ item.startsAt }} - {{ item.endsAt }}</div>
               <div class="meetup-agenda__item-col">
                 <h5 v-if="hasTitle(item)" class="meetup-agenda__title">{{ item.title }}</h5>
                 <h5 v-else class="meetup-agenda__title">{{ showDefaultTitle(item) }}</h5>
-                <p v-if="hasSpeaker(item)">
+                <p v-if="item.type === 'talk' ? true : false">
                   <span>{{ item.speaker }}</span>
                   <span class="meetup-agenda__dot"></span>
                   <span class="meetup-agenda__lang">{{ item.language }}</span>
