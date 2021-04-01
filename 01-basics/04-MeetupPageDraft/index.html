@@ -34,8 +34,8 @@
               </div>
               <div class="meetup-agenda__item-col">{{ item.startsAt }} - {{ item.endsAt }}</div>
               <div class="meetup-agenda__item-col">
-                <h5 v-if="hasTitle(item)" class="meetup-agenda__title">{{ item.title }}</h5>
-                <h5 v-else class="meetup-agenda__title">{{ showDefaultTitle(item) }}</h5>
+                <h5 v-if="item.title !== null" class="meetup-agenda__title">
+                  {{ item.title !== null ? item.title : getAgendaItemDefaultTitles()[item.type] }}</h5>
                 <p v-if="item.type === 'talk' ? true : false">
                   <span>{{ item.speaker }}</span>
                   <span class="meetup-agenda__dot"></span>

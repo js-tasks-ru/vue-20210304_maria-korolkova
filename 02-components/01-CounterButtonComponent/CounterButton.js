@@ -46,6 +46,6 @@ export default {
   // Шаблон потребуется отредактировать
   // template: '<button type="button" @click="increment" v-model="count">{{ count }}</button>',
 
-  template: '<button type="button" @click="increment" v-model="count">{{ count }}</button>',
+  template: '<button type="button" @click="increment()">{{ count }}</button>',
 }
 
