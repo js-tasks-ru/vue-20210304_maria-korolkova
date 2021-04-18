@@ -1,5 +1,6 @@
 <template>
-  <div class="form-group" :class="['form-group_inline', { 'inline': true }]">
+  <!-- <div class="form-group" :class="['form-group_inline', { 'inline': true }]"> -->
+    <div class="form-group" s:class="{ !!inline: 'form-group_inline' }">
     <label v-if="label" class="form-label">{{ label }}</label>
     <!-- <input type="text" placeholder="{{ label }}" />-->
     <slot />
