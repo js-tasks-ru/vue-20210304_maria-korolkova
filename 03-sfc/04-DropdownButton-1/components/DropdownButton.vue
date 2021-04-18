@@ -13,7 +13,7 @@
       <button 
         v-for="item in options" 
         class="dropdown__item" 
-        :class={ hasIcon: dropdown__item_icon } 
+        :class="{ hasIcon: dropdown__item_icon }" 
         type="button" 
         @click.prevent="changeValue(item)"
       >
