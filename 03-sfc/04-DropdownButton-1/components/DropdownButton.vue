@@ -1,19 +1,29 @@
 <template>
   <div class="dropdown show">
-    <button type="button" class="button dropdown__toggle dropdown__toggle_icon">
-      <app-icon icon="coffee" />
-      Заголовок - два
+    <button 
+      type="button" 
+      class="button dropdown__toggle" 
+      :class="{ hasIcon: dropdown__toggle_icon }"
+    >
+      <app-icon v-if="hasIcon" icon="options.icon" />
+      {{ options.text }}
     </button>
 
     <div class="dropdown__menu show">
-      <button class="dropdown__item dropdown__item_icon" type="button">
-        <app-icon icon="coffee" />
-        раз
+      <button 
+        v-for="item in options" 
+        class="dropdown__item" 
+        :class={ hasIcon: dropdown__item_icon } 
+        type="button" 
+        @click.prevent="changeValue(item)"
+      >
+        <app-icon v-if="hasIcon" icon="item.icon" />
+        {{ item.text }}
       </button>
-      <button class="dropdown__item dropdown__item_icon" type="button">
+      <!-- <button class="dropdown__item dropdown__item_icon" type="button" :class={ !!hasIcon: 'dropdown__item_icon' }>
         <app-icon icon="coffee" />
         два
-      </button>
+      </button> -->
       <!-- ... -->
     </div>
   </div>
@@ -36,14 +46,40 @@ export default {
     
     options: {
       type: Array,
-      default: null,
-      required: true,
+      default: function() {
+        return [
+          value: {
+            type: String,
+            required: true
+          },
+          text: {
+            type: String,
+            required: true
+            },
+          icon: {
+            type: String,
+            required: false
+            }
+          ],
+        }
     },
+           
     value: {
       type: String,
       default: null,
       required: false,
     },
+  },
+
+  methods: {
+    hasIcon() {
+      return this.options.length > 2;
+    },
+    changeValue(item) {
+      if (item.value !==  this.value) {
+        item.value = this.value;
+      }
+    }
   },
 };
 </script>
