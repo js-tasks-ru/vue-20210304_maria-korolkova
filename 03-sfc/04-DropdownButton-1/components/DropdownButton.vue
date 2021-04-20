@@ -1,30 +1,27 @@
 <template>
-  <div class="dropdown show">
+  <div class="dropdown" :class="{ show: isOpened }">
     <button 
       type="button" 
       class="button dropdown__toggle" 
-      :class="{ hasIcon: dropdown__toggle_icon }"
+      :class="{dropdown__toggle_icon: hasIcon }" 
+      @click="isOpened = !isOpened"
     >
-      <app-icon v-if="hasIcon" icon="options.icon" />
-      {{ options.text }}
+      <app-icon v-if="chosenOption && chosenOption.icon" :icon="chosenOption.icon" />
+      {{ buttonTitle }}
     </button>
 
-    <div class="dropdown__menu show">
+    <div class="dropdown__menu" :class="{ show: isOpened }">
       <button 
         v-for="item in options" 
+        :key="item.value" 
         class="dropdown__item" 
-        :class="{ hasIcon: dropdown__item_icon }" 
+        :class="{ dropdown__item_icon: hasIcon }" 
         type="button" 
-        @click.prevent="changeValue(item)"
+        @click="choose(item)"
       >
-        <app-icon v-if="hasIcon" icon="item.icon" />
+        <app-icon v-if="item.icon" :icon="item.icon" />
         {{ item.text }}
       </button>
-      <!-- <button class="dropdown__item dropdown__item_icon" type="button" :class={ !!hasIcon: 'dropdown__item_icon' }>
-        <app-icon icon="coffee" />
-        два
-      </button> -->
-      <!-- ... -->
     </div>
   </div>
 </template>
@@ -46,39 +43,45 @@ export default {
     
     options: {
       type: Array,
-      default: function() {
-        return [
-          value: {
-            type: String,
-            required: true
-          },
-          text: {
-            type: String,
-            required: true
-            },
-          icon: {
-            type: String,
-            required: false
-            }
-          ],
-        }
+      default: null,
+      required: true,
     },
            
     value: {
-      type: String,
       default: null,
       required: false,
     },
   },
 
-  methods: {
+  data() {
+    return {
+      isOpened: false,
+    }
+  },
+
+  computed: {
     hasIcon() {
-      return this.options.length > 2;
+      return this.options.some((item) => item.icon);
     },
-    changeValue(item) {
-      if (item.value !==  this.value) {
-        item.value = this.value;
-      }
+
+    chosenOption() {
+      return this.options.find((item) => item.value === this.value);
+    },
+
+    buttonTitle() {
+      return (this.chosenOption === undefined) ? this.title : `${this.title} - ${this.chosenOption.text}`;
+    }
+  },
+
+  model: {
+    prop: 'value',
+    event: 'change',
+  },
+
+  methods: { 
+    choose(item) {
+      this.isOpened = false;
+      this.$emit('change', item.value);
     }
   },
 };
@@ -160,7 +163,7 @@ export default {
   top: 15px;
   right: 16px;
   transform: none;
-  background: url('@/assets/icons/icon-chevron-down.svg') no-repeat;
+  background: url('~@/assets/icons/icon-chevron-down.svg') no-repeat;
   background-size: cover;
   display: block;
   width: 24px;

@@ -1,4 +1,4 @@
-<template><button type="button" @click="increment()">{{ count }}</button></template>
+<template><button type="button" @click="increment">{{ count }}</button></template>
 
 <script>
 export default {

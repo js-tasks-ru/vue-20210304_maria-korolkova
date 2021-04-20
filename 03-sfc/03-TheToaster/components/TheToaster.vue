@@ -19,7 +19,7 @@
 <script>
 import AppIcon from './AppIcon';
 
-const DELAY = 5000;
+// const DELAY = 5000;
 
 export default {
   name: 'TheToaster',
@@ -27,9 +27,9 @@ export default {
   components: { AppIcon },
 
   methods: {
-    error(message) {},
+    // error(message) {},
 
-    success(message) {},
+    // success(message) {},
   },
 };
 </script>
