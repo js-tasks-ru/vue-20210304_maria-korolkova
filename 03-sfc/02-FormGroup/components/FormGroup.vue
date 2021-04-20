@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="form-group" :class="['form-group_inline', { 'inline': true }]"> -->
-    <div class="form-group" :class="{ isInline: form-group_inline }">
+    <div class="form-group" :class="{ 'form-group_inline': !!inline }">
     <label v-if="label" class="form-label">{{ label }}</label>
     <!-- <input type="text" placeholder="{{ label }}" />-->
     <slot />
@@ -23,11 +23,6 @@ export default {
     }
   },
 
-  methods: {
-    isInline() {
-      return this.inline;
-    }
-  }
 };
 </script>
 
