@@ -18,11 +18,13 @@ export default {
 
   computed: {
     localDate() {
-      return new Date(this.date).toLocaleString(navigator.language, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
+      return {
+        localDate: this.date.toLocaleDateString(navigator.language, {
+          year: 'numeric',
+          day: 'numeric',
+          month: 'long'
+        }),
+      };
     },
     localDateTime() {
       return new Date(this.date).toISOString().split('T')[0];

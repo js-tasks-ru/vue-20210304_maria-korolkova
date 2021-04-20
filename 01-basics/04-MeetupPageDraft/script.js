@@ -44,4 +44,87 @@ const getAgendaItemIcons = () => ({
   other: 'cal-sm',
 });
 
-new Vue();
+const localizeDate = (str) => {
+  return new Date(str).toLocaleString(navigator.language, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+};
+
+const localizeDateToString = (str) => {
+  return new Date(str).toISOString().split('T')[0];
+};
+
+const app = new Vue({
+  el: '#app',
+  
+  data: (app) => ({
+    meetup: null,
+    agendaItemIcons: getAgendaItemIcons()
+  }),
+
+  methods: {
+    getMeetupData: function () {
+      const url = API_URL + '/meetups/' + MEETUP_ID;
+      fetch(url) 
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.meetup = data;
+        });
+    },
+
+    hasTitle: function (item) {
+      return item.title !== null ? true : false;
+    },
+
+    showDefaultTitle: function (item) {
+      const type = item.type;
+      const obj = getAgendaItemDefaultTitles();
+      const title = obj[type];
+      return title;
+    },
+  },
+
+  created() {
+    this.getMeetupData();
+  },
+
+  computed: {
+    title: function () {
+      return this.meetup.title;
+    },
+    description: function () {
+      return this.meetup.description;
+    },
+    organizer: function () {
+      return this.meetup.organizer;
+    },
+    place: function () {
+      return this.meetup.place;
+    },
+    date: function () {
+      const dateFormatted = localizeDate(this.meetup.date);
+      return dateFormatted;
+    },
+    datetime: function () {
+      const dateFormatted = localizeDateToString(this.meetup.date);
+      return dateFormatted;
+    },
+    bgImage: function () {
+      if (this.meetup.imageId === null|| this.imageSrc === null) return;
+      const bgStyle = `--bg-url: url(https://course-vue.javascript.ru/api/images/${this.meetup.imageId})`;
+      return bgStyle;
+    },
+    noAgenda: function () {
+      return (this.meetup.agenda.length === 0) ? true : false;
+    },
+    defaultTitle: function (item) {
+      const title = this.showDefaultTitle(item.type);
+      return title;
+    },
+  },
+
+});
